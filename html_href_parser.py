@@ -4,9 +4,12 @@ import re
 
 
 class HtmlHrefParser:
+    """
+    Class to load html from provided url and parse hrefs (all or with name extension) in it.
+    """
     html_data = None
 
-    def __init__(self, url, name_extension = None):
+    def __init__(self, url, name_extension=None):
         self.url = url
         self.name_extension = name_extension
 
