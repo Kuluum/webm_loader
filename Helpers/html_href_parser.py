@@ -1,5 +1,5 @@
-import urllib2
-import urlparse
+import urllib.request
+from urllib.parse import urljoin
 import re
 
 
@@ -35,10 +35,10 @@ class HtmlHrefParser:
         :return: Body of loaded url.
         """
         if self.__is_valid_url(self.url):
-            response = urllib2.urlopen(self.url)
-            response_body = response.read()
-            self.html_data = response_body
-            return response_body
+            with urllib.request.urlopen(self.url) as response:
+                response_body = str(response.read())
+                self.html_data = response_body
+                return response_body
         return None
 
     def parse(self):
@@ -54,7 +54,7 @@ class HtmlHrefParser:
         relative_urls_list = re.findall(re_pattern, self.html_data)
 
         # Translate relative url path '../webm_name.webm' to absolute path to resource.
-        absolute_urls_set = set(map(lambda u: urlparse.urljoin(self.url, u), relative_urls_list))
+        absolute_urls_set = set(map(lambda u: urljoin(self.url, u), relative_urls_list))
 
         return list(absolute_urls_set)
 

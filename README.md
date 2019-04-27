@@ -1,35 +1,29 @@
 # Webm loader
-Usable for 2ch.hk, other boards and any page that has webm.
+Usable for 2ch.hk, other boards or any page that has webms.
 
 ## Version
-1.0
+1.1
 
-## Parser
+## Python
+3.7
 
-webm_parser.py script.
 
-Takes html page url as parameter and returns list of webm urls from this page.
+## Loader
+
+```sh
+webm_loader.py
+```
+
+Takes html page url as parameter and downloads all found webms to downloads/*\_now_timestamp\_*.
 
 ### Usage
 
 #### Call
 
 ```sh
-$ python webm_parser.py http://domain.com/webm_cool_videos.html
+$ python webm_loader.py http://domain.com/webm_cool_videos.html
 ```
 
 #### Result
 
-```sh
-http://domain.com/cool_story.webm
-http://domain.com/asian_video.webm
-http://domain.com/memes_compilation.webm
-```
-## Loader
-
-Have no own loader now. But you can use wget. Easy.
-
-```sh
-$ python webm_parser.py http://domain.com/webm_cool_videos.html > webms.txt
-$ wget -nc -i webms.txt -P webm_folder
-```
+Watch all the webms in downloads/*\_now_timestamp\_* directory

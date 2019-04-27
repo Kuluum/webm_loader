@@ -3,19 +3,6 @@ class WebFileLoader:
     def __init__(self):
         pass
 
-   # @staticmethod
-   # def download(url):
-   #     """
-   #     Copy the contents of a file from a given URL
-   #     to a local file.
-   #     """
-   #     import urllib2
-   #     webFile = urllib2.urlopen(url)
-   #     localFile = open(url.split('/')[-1], 'w')
-    #    localFile.write(webFile.read())
-    #    webFile.close()
-    #    localFile.close()
-
     @staticmethod
     def __reporthook(count, block_size, total_size):
         import time
@@ -25,6 +12,8 @@ class WebFileLoader:
             start_time = time.time()
             return
         duration = time.time() - start_time
+        if duration <= 0:
+            return
         progress_size = int(count * block_size)
         speed = int(progress_size / (1024 * duration))
         percent = int(count * block_size * 100 / total_size)
@@ -33,6 +22,9 @@ class WebFileLoader:
         sys.stdout.flush()
 
     @staticmethod
-    def save(url):
-        import urllib
-        urllib.urlretrieve(url, url.split('/')[-1], WebFileLoader.__reporthook)
+    def save(url, folder_name=''):
+        import urllib.request
+        path = url.split('/')[-1]
+        if len(folder_name) > 0:
+            path = folder_name + '/' + path
+        urllib.request.urlretrieve(url, path, WebFileLoader.__reporthook)
